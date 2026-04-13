@@ -14,6 +14,14 @@ db = None
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    @app.get('/')
+    def root_health():
+        return {'status': 'ok', 'service': 'annadaan-backend'}, 200
+
+    @app.get('/api/health')
+    def api_health():
+        return {'status': 'ok', 'api': 'ready'}, 200
     
     # Extensions
     CORS(app, origins="*", supports_credentials=True)
